@@ -1,5 +1,3 @@
-import 'ag-grid-community/styles/ag-grid.css'
-import 'ag-grid-community/styles/ag-theme-alpine.css'
 import { AgGridReact } from 'ag-grid-react'
 import type {
   GetServerSidePropsContext,
@@ -69,19 +67,15 @@ export default function Home({
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   const isBot = checkBot(res.getHeaders())
-  const staff = []
-
-  for (let id = 1; id <= 3; id++) {
-    staff.push({
-      id,
-      first_name: `first${id}`,
-      last_name: `last${id}`,
-      email: `member${id}@company.com`,
-      phone: `12345${id}`,
-      office: `place${id}`,
-      job_title: `Worker${id}`
-    })
-  }
+  const staff = Array.from({ length: 3 }).map((_v, idx) => ({
+    id: idx,
+    first_name: `first${idx}`,
+    last_name: `last${idx}`,
+    email: `member${idx}@company.com`,
+    phone: `12345${idx}`,
+    office: `place${idx}`,
+    job_title: `Worker${idx}`
+  }))
 
   return { props: { staff, isBot } }
 }
